@@ -270,17 +270,10 @@ function generateReload(unit) {
 }
 
 
-function convert(event) {
-    event.preventDefault();
-    var raw = document.getElementById('unit').value;
+export function convert(raw) {
     var parsed = parseINIString(raw);
     var validated = validate(parsed);
-    if (validated !== null) {
-        document.getElementById('error').innerHTML = validated;
-        return;
-    } else {
-        document.getElementById('error').innerHTML = '';
-    }
+    
     console.log(parsed);
 
     var result = '#!/sbin/openrc-run\n\nname=$RC_SVCNAME\ndescription="' + parsed.Unit.Description + '"\n';
@@ -311,9 +304,12 @@ function convert(event) {
     result += generateStop(parsed);
     result += generateReload(parsed);
 
-    document.getElementById('openrc').innerText = result;
+    var response = { 
+        validated,
+        parsed,
+        result
+    }
+    return response;
 }
 
-document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById('convert').addEventListener('click', convert);
-});
+// This does not run a function like the default

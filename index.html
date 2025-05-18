@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>The #!openrc-run generator</title>
+        <style>
+            body {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            section {
+                flex-basis: 0;
+                flex-grow: 1;
+                padding: 10px;
+            }
+
+            header {
+                flex: 0 0 100%;
+            }
+
+            pre {
+                padding: 10px;
+                background: #eee;
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <h1>The #!openrc-run generator</h1>
+        </header>
+        <section id="source">
+            <p>
+                Paste a systemd service unit here to convert it to openrc
+            </p>
+            <textarea style="width: 100%" id="unit" rows="15"></textarea>
+        </section>
+        <section id="settings">
+            <button id="convert">Convert</button>
+            <details>
+                <summary>
+                    Supported systemd keys
+                </summary>
+                <ul>
+                    <li>Description</li>
+                    <li>Before</li>
+                    <li>After</li>
+                    <li>Requires</li>
+                    <li>Wants</li>
+                    <li>Type (simple, exec, forking and oneshot)</li>
+                    <li>ExecStart</li>
+                    <li>ExecStop</li>
+                    <li>ExecReload</li>
+                    <li>PIDFile</li>
+                    <li>User</li>
+                    <li>Group</li>
+                </ul>
+                <p>For "simple" and "exec" type:</p>
+                <ul>
+                    <li>WorkingDirectory</li>
+                    <li>RootDirectory</li>
+                    <li>UMask</li>
+                    <li>Nice</li>
+                    <li>Environment</li>
+                    <li>IOSchedulingClass</li>
+                    <li>IOSchedulingPriority</li>
+                    <li>StandardOutput=file:...</li>
+                    <li>StandardError=file:...</li>
+                </ul>
+                <p>For "oneshot" and "forking" type:</p>
+                <ul>
+                    <li>WorkingDirectory</li>
+                    <li>RootDirectory</li>
+                    <li>UMask</li>
+                    <li>Nice</li>
+                    <li>IOSchedulingClass</li>
+                    <li>IOSchedulingPriority</li>
+                    <li>CPUSchedulingPolicy</li>
+                    <li>CPUSchedulingPriority</li>
+                </ul>
+            </details>
+        </section>
+        <section id="result">
+            <div id="error"></div>
+            <pre id="openrc"></pre>
+        </section>
+        <script type="module" src="index.js"></script>
+    </body>
+</html>
